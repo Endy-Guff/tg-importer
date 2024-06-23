@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .chats {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .link {
+        background: #5182ff;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 8px;
+        transition: 0.3s;
+      }
+
+      .link:hover {
+        transform: scale(1.02);
+      }
+    </style>
+    <title>CHATS</title>
+  </head>
+  <body>
+    <div class="chats" />
+
+    <script>
+      const fetchChats = async () => {
+        const chats = await fetch("/api/files");
+        const data = await chats.json();
+        return data;
+      };
+
+      const setChatsToUi = (chatPaths) => {
+        const container = document.querySelector(".chats");
+        chatPaths.forEach(({ username, path }, i) => {
+          const link = document.createElement("a");
+          link.classList.add("link");
+          link.innerText = username;
+          link.href = path;
+
+          container.appendChild(link);
+        });
+      };
+
+      const data = fetchChats().then((paths) => setChatsToUi(paths));
+    </script>
+  </body>
+</html>
