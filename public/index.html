@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      .chats {
+      .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
+      }
+      .chats {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
@@ -31,7 +33,15 @@
     <title>CHATS</title>
   </head>
   <body>
-    <div class="chats" />
+    <div class="container">
+      <div>
+        <h2>Выберите архив с папками чатов для загрузки:</h2>
+        <input type="file" id="archiveInput" accept=".zip" />
+        <button onclick="uploadArchive()">Загрузить архив</button>
+      </div>
+      <h2>Чаты:</h2>
+      <div class="chats" />
+    </div>
 
     <script>
       const fetchChats = async () => {
@@ -53,6 +63,35 @@
       };
 
       const data = fetchChats().then((paths) => setChatsToUi(paths));
+
+      async function uploadArchive() {
+        const archiveInput = document.getElementById("archiveInput");
+        const formData = new FormData();
+
+        if (!archiveInput.files[0]) {
+          alert("Выберите файл для загрузки");
+          return;
+        }
+
+        formData.append("archive", archiveInput.files[0]);
+
+        try {
+          const response = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("Ошибка при загрузке");
+          }
+
+          alert("Архив успешно загружен!");
+          location.reload()
+        } catch (error) {
+          console.error("Ошибка:", error);
+          alert("Произошла ошибка при загрузке архива");
+        }
+      }
     </script>
   </body>
 </html>

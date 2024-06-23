@@ -31,4 +31,4 @@ tg-importer/
 └── package.json
 ```
 
-Откройте [http://localhost:5000]
+Откройте [http://localhost:5000](http://localhost:5000)
