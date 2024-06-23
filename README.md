@@ -1,17 +1,13 @@
 ## Начало работы
 
-В первую очередь нужно поместить директории с телеграмм-чатами в директорию chats.
-Пример структуры:
+Установить, Запустить:
 
 ```bash
-tg-importer/
-├── chats/
-│   ├── ChatExport_2024-01-01/
-│       └── messages.html
-│   └── ChatExport_2024-01-02/
-│       └── messages.html
-└── package.json
+yarn install
+yarn start
 ```
+
+Откройте [http://localhost:5000](http://localhost:5000)
 
 Далее для удобства чтения можно запустить скрипт, который переименует название папок по имени собеседника:
 
@@ -31,4 +27,3 @@ tg-importer/
 └── package.json
 ```
 
-Откройте [http://localhost:5000](http://localhost:5000)
